@@ -1,0 +1,128 @@
+% =====================================================================
+% Wurzeldokument der Vorlage für Abschluss- und Seminararbeiten
+% Übersetzen mit: pdflatex -> bibtex -> pdflatex -> pdflatex
+% (Overleaf und latexmk erledigen das automatisch.)
+% =====================================================================
+
+% 'twoside=off' für die Onlineversion, 'twoside=on' für die Druckversion
+\documentclass[12pt,twoside=off,listof=totoc,bibliography=totoc,appendixprefix,paper=a4,headings=small]{scrbook}
+
+% Packages
+% -----------------------------------
+% Schrift und Sprache
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}				% Schriftfamilie
+\usepackage[ngerman]{babel}
+\usepackage{csquotes}				% kontextabhängige Anführungszeichen (\enquote{...})
+\usepackage{microtype}				% Mikrotypografie (besseres Schriftbild)
+\setkomafont{disposition}{\bfseries}
+
+% Seitenränder (bei Bedarf einkommentieren)
+% \usepackage[
+%   paper=a4paper,
+%   left=12.5mm,
+%   right=25mm,
+%   top=25mm,
+%   bottom=50mm,
+%   bindingoffset=10mm]{geometry}	% Seitenränder und Bindungskorrektur
+
+% Literaturverwaltung: apacite (Zitierstil APA) mit natbib-Befehlen
+% (\citet, \citep, ...) und BibTeX. Bewusst kein biblatex/biber: biber ist
+% deutlich langsamer und sprengt das Compile-Zeitlimit von Overleaf (Free).
+% Nicht zusätzlich biblatex laden -- die Pakete sind inkompatibel.
+\usepackage[natbibapa]{apacite}
+
+% Grafiken
+\usepackage{graphicx}				% Grafiken einfügen (pdf, png - jpg möglichst vermeiden)
+\graphicspath{{./Bilder/}}			% Pfad zu den Bildern
+
+% Tabellen
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{ltablex}				% tabularx-Tabellen dürfen über Seiten umbrechen
+\usepackage{multirow}
+\usepackage{booktabs}				% schönere horizontale Linien (\toprule, \midrule, ...)
+
+% Sonstiges
+\usepackage{amsmath}				% mathematische Formeln
+\usepackage{listings}				% Quellcode / Algorithmen
+\lstset{
+  basicstyle=\ttfamily\small,		% Schrift für Quellcode
+  columns=fullflexible, keepspaces=true,	% normale Zeichenabstände, Einrückung bleibt erhalten
+  numbers=left, numberstyle=\tiny,	% Zeilennummern
+  frame=tb,							% Linie oberhalb und unterhalb
+  captionpos=t,						% Beschriftung oberhalb (wie bei Tabellen)
+  breaklines=true,					% lange Zeilen umbrechen
+  showstringspaces=false
+}
+\usepackage{lscape}					% einzelne Seiten im Querformat
+\usepackage{setspace}				% Zeilenabstand
+% \usepackage{todonotes}			% ToDos im Dokument markieren
+
+\newtheorem{mydef}{Merksatz}		% Merksätze und Beispiele mit fortlaufender Nummer
+\newtheorem{bsp}{Beispiel}
+
+% hyperref möglichst als letztes Paket laden
+\usepackage[colorlinks,linkcolor=black,citecolor=black,urlcolor=black]{hyperref}
+
+\hyphenation{voll-stän-di-gen}		% Worttrennungen global definieren
+
+\setcounter{tocdepth}{1}			% Ebenen, die im Inhaltsverzeichnis angezeigt werden
+\counterwithin{table}{chapter}
+\counterwithin{figure}{chapter}
+
+% Document
+% -----------------------------------
+\begin{document}
+
+\frontmatter
+    \input{./Titel/titel}				% Titelblatt
+    \input{./Kapitel/0_abstract_deu}	% Abstract auf Deutsch
+    \clearpage{\pagestyle{empty}\cleardoublepage}
+    \input{./Kapitel/0_abstract_eng}	% Abstract auf Englisch
+    \clearpage{\pagestyle{empty}\cleardoublepage}
+    % Sperrvermerk: nur bei vertraulichen Unternehmensdaten einkommentieren
+    % \input{./Kapitel/X_sperrvermerk}
+    % \clearpage{\pagestyle{empty}\cleardoublepage}
+
+    \onehalfspacing						% Zeilenabstand ab hier 1,5-zeilig
+    \tableofcontents					% Inhaltsverzeichnis
+    \clearpage{\pagestyle{empty}\cleardoublepage}
+
+    \listoffigures						% Abbildungsverzeichnis
+    \clearpage{\pagestyle{empty}\cleardoublepage}
+
+    \listoftables						% Tabellenverzeichnis
+    \clearpage{\pagestyle{empty}\cleardoublepage}
+
+    \input{./Kapitel/0_abkuerzungen}	% Abkürzungsverzeichnis
+    \clearpage{\pagestyle{empty}\cleardoublepage}
+
+% -----------------------------------
+\mainmatter								% die einzelnen Kapitel
+    \input{./Kapitel/1_einleitung}
+    \clearpage{\pagestyle{empty}\cleardoublepage}
+    \input{./Kapitel/2_grundlagen}
+    \clearpage{\pagestyle{empty}\cleardoublepage}
+    \input{./Kapitel/3_eigenanteil}
+    \clearpage{\pagestyle{empty}\cleardoublepage}
+    \input{./Kapitel/4_ergebnisse}
+    \clearpage{\pagestyle{empty}\cleardoublepage}
+    \input{./Kapitel/5_fazit}
+    \clearpage{\pagestyle{empty}\cleardoublepage}
+    \appendix
+    \input{./Kapitel/X_appendix}
+    \clearpage{\pagestyle{empty}\cleardoublepage}
+
+% -----------------------------------
+\backmatter
+\bibliographystyle{apacite}			% Literaturverzeichnis im APA-Stil
+\bibliography{Literatur/quellen}		% Pfad zur .bib-Datei (ohne Endung)
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\markboth{}{}
+\input{./Kapitel/6_1_eigenstaedigkeitserklaerung}
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\input{./Kapitel/6_2_kognition}
+\clearpage{\pagestyle{empty}\cleardoublepage}
+
+\end{document}

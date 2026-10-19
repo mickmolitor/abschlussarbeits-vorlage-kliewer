@@ -1,0 +1,55 @@
+\chapter{Grundlagen des \glqq{}Themas\grqq{}}
+
+Die \glqq{}inneren\grqq{} Kapitel (alle außer dem ersten und dem letzten) sollen spezifisch benannt werden. Generische Überschriften (Stand der Forschung, Problemstellung, Methodik usw.), die in jeder beliebigen Abschlussarbeit stehen könnten, sollen vermieden werden.
+Das Kapitel \glqq{}Grundlagen\grqq{} legt die theoretische und begriffliche Basis für die gesamte Arbeit. Hier werden zentrale Konzepte definiert, der Stand der Forschung aufgearbeitet und theoretische Rahmenwerke vorgestellt. Eine saubere Begriffsarbeit ist essenziell: Fachbegriffe sollten bei ihrer ersten Verwendung erklärt und konsistent im gesamten Dokument verwendet werden.
+
+\section{Umgang mit Abbildungen}
+
+Abbildungen dienen dazu, komplexe Zusammenhänge visuell darzustellen und sollten nur dann eingefügt werden, wenn sie einen inhaltlichen Mehrwert bieten. Jede Abbildung muss im Text erläutert und referenziert werden (ein bloßes \glqq{}siehe Abbildung X\grqq{} reicht nicht). Nummerierung und Formatierung erfolgen automatisch -- eine Abbildung benötigt nur ein Label, das dann mit \verb|\ref{}| referenziert wird, wie hier bei Abbildung \ref{fig:bsp1}. Die Beschriftung (\verb|\caption|) steht bei Abbildungen unterhalb.
+
+\begin{figure}[h]
+	\centering
+		\includegraphics[width=0.4\textwidth]{./Bilder/bsp1.png}
+	\caption{Beispiel 1 zum Einfügen einer Grafik}
+	\label{fig:bsp1}
+\end{figure}
+
+\section{Umgang mit Tabellen}
+
+Tabellen eignen sich zur strukturierten Darstellung von Daten, Vergleichen oder Übersichten. Wie bei Abbildungen gilt: Tabellen sollten nur eingefügt werden, wenn sie die Argumentation unterstützen und im Text erläutert werden. Ein Beispiel ist die Übersicht der Zitierbefehle in Tabelle \ref{tab:cite}. Die Beschriftung steht bei Tabellen oberhalb; für horizontale Linien werden \verb|\toprule|, \verb|\midrule| und \verb|\bottomrule| aus dem Paket \texttt{booktabs} verwendet, senkrechte Linien entfallen. Tabellen müssen Sie so gut wie nie von Hand abtippen:
+
+\begin{itemize}
+  \item \textbf{Tables Generator} (tablesgenerator.com) -- Excel-Bereich einfügen, LaTeX-Code exportieren.
+  \item \textbf{Excel2LaTeX} -- Excel-Add-in, wandelt markierte Zellen per Knopfdruck um.
+  \item \textbf{Generative KI} (ChatGPT, Claude \dots) wandelt eingefügte Tabellen zuverlässig um -- aber \textbf{jede Zahl danach gegen die Originaltabelle prüfen}, KI kann Werte vertauschen oder runden.
+\end{itemize}
+
+\section{Literaturverzeichnis}
+
+Das Literaturverzeichnis listet alle in der Arbeit zitierten Quellen auf. Die Verwaltung erfolgt mit \texttt{BibTeX}; den Zitierstil APA liefert das Paket \texttt{apacite}, die Zitierbefehle stammen aus \texttt{natbib}. Verwenden Sie ein gängiges Zitierformat (z.\,B. APA, Harvard, IEEE) und wenden Sie dieses konsistent an. Nutzen Sie Literaturverwaltungssoftware wie Citavi, EndNote oder Zotero, um Ihre Referenzen als \texttt{.bib}-Datei zu exportieren, und speichern Sie diese als \texttt{Literatur/quellen.bib}; eingebunden wird sie am Ende von \texttt{main.tex} mit \verb|\bibliography{Literatur/quellen}|. Ins Literaturverzeichnis gelangen automatisch alle zitierten Quellen. Zum Übersetzen ist der Ablauf \texttt{pdflatex} $\rightarrow$ \texttt{bibtex} $\rightarrow$ \texttt{pdflatex} $\rightarrow$ \texttt{pdflatex} erforderlich; Overleaf erledigt das automatisch. Laden Sie nicht zusätzlich \texttt{biblatex}, da es mit \texttt{natbib} und \texttt{apacite} inkompatibel ist. \textbf{Abwandlungen} des Zitierbefehls werden in der Tabelle \ref{tab:cite} dargestellt und zeigen, wie das Zitat im Satz erscheint.
+
+\begin{table}[htbp]
+\centering
+\footnotesize
+\caption{Varianten der Zitierbefehle mit \texttt{natbib} und \texttt{apacite}}
+\label{tab:cite}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{LaTeX-Quellcode} & \textbf{Ergebnis im PDF} \\
+\midrule
+\verb|\citep{kliewer2006time}| & \citep{kliewer2006time} \\
+\verb|\citet{kliewer2006time}| & \citet{kliewer2006time} zeigen \dots \\
+\verb|\citep[S.~1620]{kliewer2006time}| & \citep[S.~1620]{kliewer2006time} \\
+\verb|\citep[vgl.][]{kliewer2006time}| & \citep[vgl.][]{kliewer2006time} \\
+\verb|\citeauthor{kliewer2006time}| & \citeauthor{kliewer2006time} \\
+\verb|\citeyear{kliewer2006time}| & \citeyear{kliewer2006time} \\
+\verb|\citep{kliewer2006time,gopen1990science}| & \citep{kliewer2006time,gopen1990science} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent Die Faustregel: \textbf{\texttt{\textbackslash citep}} (\glqq{}parenthetical\grqq{}) setzt den \emph{gesamten} Verweis in Klammern und eignet sich, wenn die zitierten Personen nicht Teil des Satzes sind, z.\,B.: \glqq{}Die Nachfrage steigt bei höheren Temperaturen \citep{kliewer2006time}.\grqq{} \textbf{\texttt{\textbackslash citet}} (\glqq{}textual\grqq{}) macht die zitierten Personen grammatikalisch zum Satzsubjekt, z.\,B.: \glqq{}\citet{kliewer2006time} zeigen, dass \dots\grqq{} Über die optionalen Argumente in eckigen Klammern lassen sich Seitenangaben oder Zusätze wie \glqq{}vgl.\grqq{} ergänzen.
+
+\section{Formatierung}
+
+Die gesamte Arbeit sollte einheitlich formatiert sein. In Word pflegt man dafür Formatvorlagen manuell; in LaTeX sind alle Einstellungen (Schrift, Seitenränder, Zeilenabstand, Seitenzahlen, Überschriften und Verzeichnisse) zentral in der \texttt{main.tex} getroffen und müssen nicht angepasst werden. Werden zusätzliche Funktionen benötigt, können dort weitere Pakete ergänzt werden.
